@@ -11,5 +11,7 @@
     <mapping class="model.Cliente"/>
     <mapping class="model.ContaCorrente"/>
     <mapping class="model.Movimentacao"/>
+    <mapping class="model.Credito"/>
+    <mapping class="model.Debito"/>
   </session-factory>
 </hibernate-configuration>

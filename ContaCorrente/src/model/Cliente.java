@@ -29,6 +29,10 @@ public class Cliente {
         this.cpf = cpf;
     }
     
+    public String toString(){
+        return nome + " " + cpf;
+    }
+    
 
 
     public ContaCorrente getContaCorrente() {

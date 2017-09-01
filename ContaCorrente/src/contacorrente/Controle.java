@@ -5,52 +5,34 @@
  */
 package contacorrente;
 
-import model.Cliente;
-import model.ContaCorrente;
-import model.Movimentacao;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import java.util.Scanner;
 
 /**
  *
- * @author alexandre.torres
+ * @author alexandretorres
  */
 public class Controle {
     public static void main(String[] args) {
-        SessionFactory sf = null;
-        Session session = null;
+        Scanner teclado = new Scanner(System.in);
         
-        ContaCorrente cc = new ContaCorrente(2387);
-        Cliente a = new Cliente("Antonio", 321654);
-        a.setContaCorrente(cc);
-        
-        cc.adicionaLancamento( new Movimentacao( "C", "Depósito inicial", 1000));
-        cc.adicionaLancamento(new Movimentacao("C", "Mesada", 200));
-        cc.adicionaLancamento( new Movimentacao("D", "Faca do CS", 1800));
-        
-        
-        try{
-            sf = HibernateUtil.getSessionFactory();
-            session = sf.openSession();
-            
-            for( Movimentacao m : cc.getLancamentos()){
-                session.save( m );
+        boolean sair = false;
+        do{
+            System.out.println("O que deseja fazer?");
+            System.out.println("1. Inicializar dados");
+            System.out.println("2. Consultar clientes");
+            System.out.println("3. Consultar lançamentos de um cliente");
+            System.out.println("0. Sair");
+            int opcao = teclado.nextInt();
+            switch( opcao){
+                case 1: InicializaDados.inicializa();
+                        break;
+                case 2: ConsultarClientes.consultar();
+                        break;
+                case 0: sair = true;
+                        break;
+                default: System.out.println("Opção inválida");
             }
-            session.save( a);
-            session.save(cc);
-            session.beginTransaction();
-            // salvar objetos
-            
-            session.getTransaction().commit();
-            
-        }catch (Exception e){
-            session.getTransaction().rollback();
-        }finally{
-            session.close();
-            sf.close();
-        }
-        
-        System.out.println("Seu saldo é " + cc.getSaldo());
+        }while(!sair);
         
     }
     

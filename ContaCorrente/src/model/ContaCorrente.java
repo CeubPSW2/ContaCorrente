@@ -7,6 +7,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,23 +22,19 @@ public class ContaCorrente {
     @GeneratedValue
     private int id;
     private int numero;
-    @OneToMany( mappedBy="contaCorrente")
+    @OneToMany( mappedBy="contaCorrente", cascade = CascadeType.ALL)
     private List<Movimentacao> lancamentos = new ArrayList<>();
 
     public double getSaldo(){
         double saldo = 0;
         
         for (Movimentacao m : lancamentos){
-            if (m.getTipo().equals("D"))
-                saldo -= m.getValor();
-            else
-                saldo += m.getValor();
+            saldo += m.getValorQualificado(); // chamada polimórfica
         }
         
-        return saldo;
-            
-        
+        return saldo;  
     }
+    
     public List<Movimentacao> getLancamentos() {
         return lancamentos;
     }

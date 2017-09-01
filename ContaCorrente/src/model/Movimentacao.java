@@ -8,6 +8,8 @@ package model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
 /**
@@ -15,36 +17,35 @@ import javax.persistence.ManyToOne;
  * @author alexandre.torres
  */
 @Entity
-public class Movimentacao {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Movimentacao {
     @Id
     @GeneratedValue
     private int id;
-    private String tipo;
     private String descricao;
     private double valor;
     @ManyToOne
     private ContaCorrente contaCorrente;
     
-    public Movimentacao(String tipo, String descricao, double valor){
-        this.tipo = tipo;
+    public Movimentacao(String descricao, double valor){
         this.descricao = descricao;
         this.valor = valor;
     }
 
+    /**
+     * Obtém o valor qualificado, isto é, se for um débito
+     * será um valor negativo.
+     * @return double
+     */
+    
+    public abstract double getValorQualificado();
+    
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public String getDescricao() {
