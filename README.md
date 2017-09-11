@@ -25,3 +25,8 @@ Vantagem: tabelas focadas no tipo de dado.
 Desvantagem: leituras polimórficas serão feitas com UNION das tabelas.
 - `InheritanceType.JOINED` - Cada classe tem sua tabela, no entando, a classe genérica tem uma tabela com os dados genéricos, e as classes específicas tem tabelas com os dados específicos. Vantagem: é o modelo mais versátil. Desvantagem: todos os queries precisam ter JOIN das tabelas.
 
+## Exercício de HQL
+1. Na classe de controle faça um HQL que recupere clientes.
+2. Dado um cliente, recupere sua conta corrente.
+3. Dado um cliente, recupere a conta corrente e as movimentações.
+
