@@ -60,10 +60,6 @@ public class ClienteService {
             Query query = session.createQuery( "select c from Cliente c ");
             clientes = query.list();
             
-            System.out.println("Lista de clientes\n------------------------");
-            for (Cliente c : clientes)
-                System.out.println(c);
-            
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
@@ -75,4 +71,22 @@ public class ClienteService {
         
     }    
     
+    public static Cliente getCliente(int id){
+        SessionFactory sf = null;
+        Session session = null;
+        Cliente cliente = null;
+        
+        try {
+            sf = HibernateUtil.getSessionFactory();
+            session = sf.openSession();
+            cliente = (Cliente)session.get(Cliente.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            if (session != null)
+                session.close();
+        }
+        
+        return cliente;
+    }    
 }

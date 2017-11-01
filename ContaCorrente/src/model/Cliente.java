@@ -24,6 +24,10 @@ public class Cliente {
     private int cpf;
     @OneToOne (cascade = CascadeType.ALL)
     private ContaCorrente contaCorrente;
+
+    public Cliente() {
+    }
+    
     
     public Cliente( String nome, int cpf){
         this.nome = nome;
@@ -31,10 +35,8 @@ public class Cliente {
     }
     
     public String toString(){
-        return nome + " " + cpf;
+        return "id: " + id + " - " + nome + " " + cpf;
     }
-    
-
 
     public ContaCorrente getContaCorrente() {
         return contaCorrente;

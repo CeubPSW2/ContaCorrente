@@ -13,7 +13,11 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Debito extends Movimentacao{
+
+    public Debito() {
+    }
         
+    
     public Debito(String descricao, double valor){
         super(descricao, valor);
     }
