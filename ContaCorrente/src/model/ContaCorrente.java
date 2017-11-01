@@ -25,6 +25,10 @@ public class ContaCorrente {
     @OneToMany( mappedBy="contaCorrente", cascade = CascadeType.ALL)
     private List<Movimentacao> lancamentos = new ArrayList<>();
 
+    public ContaCorrente() {
+    }
+
+    
     public double getSaldo(){
         double saldo = 0;
         

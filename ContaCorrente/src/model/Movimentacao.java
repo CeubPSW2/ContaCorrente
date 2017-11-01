@@ -27,6 +27,8 @@ public abstract class Movimentacao {
     @ManyToOne
     private ContaCorrente contaCorrente;
     
+    public Movimentacao(){}
+    
     public Movimentacao(String descricao, double valor){
         this.descricao = descricao;
         this.valor = valor;

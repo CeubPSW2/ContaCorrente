@@ -5,7 +5,13 @@
  */
 package contacorrente;
 
+import java.util.List;
 import java.util.Scanner;
+import model.Cliente;
+import model.ContaCorrente;
+import model.Credito;
+import model.Debito;
+import service.ClienteService;
 
 /**
  *
@@ -24,9 +30,9 @@ public class Controle {
             System.out.println("0. Sair");
             int opcao = teclado.nextInt();
             switch( opcao){
-                case 1: InicializaDados.inicializa();
+                case 1: inicializa();
                         break;
-                case 2: ConsultarClientes.consultar();
+                case 2: consultar();
                         break;
                 case 0: sair = true;
                         break;
@@ -35,5 +41,36 @@ public class Controle {
         }while(!sair);
         
     }
+    
+    public static void inicializa() {
+        
+        // Cria os dados
+        ContaCorrente cc = new ContaCorrente(2387);
+        Cliente cliente1 = new Cliente("Antonio", 321654);
+        cliente1.setContaCorrente(cc);
+        
+        cc.adicionaLancamento( new Credito( "Depósito inicial", 1000));
+        cc.adicionaLancamento(new Credito("Mesada", 200));
+        cc.adicionaLancamento( new Debito("Faca do CS", 1800));
+        
+        ClienteService.insere( cliente1 );
+        
+        Cliente cliente2 = new Cliente( "João da Silva", 1234567);
+        ContaCorrente cc1 = new ContaCorrente( 12333 );
+        cc1.adicionaLancamento( new Credito( "Depósito inicial", 1500));
+        cc1.adicionaLancamento(new Debito("Gasolina", 180));
+        cc1.adicionaLancamento( new Debito("Auguel", 1300));
+        
+        ClienteService.insere( cliente2 );        
+    }    
+    
+    public static void consultar(){
+        
+        List<Cliente> clientes = ClienteService.getClientes();
+            
+        System.out.println("Lista de clientes\n------------------------");
+        for (Cliente c : clientes)
+            System.out.println(c);
+    }    
     
 }
