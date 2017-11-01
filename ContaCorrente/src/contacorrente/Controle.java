@@ -13,6 +13,8 @@ import model.Credito;
 import model.Debito;
 import org.hibernate.SessionFactory;
 import service.ClienteService;
+import service.ContaCorrenteService;
+import service.MovimentacaoService;
 
 /**
  *
@@ -21,6 +23,8 @@ import service.ClienteService;
 public class Controle {
     public static void main(String[] args) {
         menuPrincipal();
+//        Cliente cliente = ClienteService.getCliente(2);
+//        ContaCorrenteService.getContaCorrente(cliente);
     }
     public static void menuPrincipal() {
         Scanner teclado = new Scanner(System.in);
@@ -114,7 +118,23 @@ public class Controle {
         1 - pedir o id do cliente e recuperar o objeto
         2 - pedir o valor do crédito
         2 - criar MovimentacaoService.lancarCredito(Cliente cliente, double valor)
-        */               
+        */           
+        
+        Scanner teclado = new Scanner(System.in);
+        System.out.print("Digite o id do cliente: ");
+        int id = teclado.nextInt();
+        
+        Cliente cliente = ClienteService.getCliente(id);
+        if (cliente == null){
+            System.out.println("Cliente não encontrado");
+            return;
+        }
+        
+        System.out.print("\nDigite o valor do credito: R$ ");
+        double credito = teclado.nextDouble();
+        
+        MovimentacaoService.lancarCredito(cliente, credito);
+        
     }    
     
     public static void inicializa() {
