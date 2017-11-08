@@ -74,5 +74,8 @@ public abstract class Movimentacao {
         this.contaCorrente = contaCorrente;
     }
     
+    public String toString(){
+        return getDescricao() + " R$ " + getValorQualificado();
+    }
     
 }

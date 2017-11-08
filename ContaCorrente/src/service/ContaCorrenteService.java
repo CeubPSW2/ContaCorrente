@@ -25,7 +25,7 @@ public class ContaCorrenteService {
         ContaCorrente cc = null;
         
         String hql = "FROM ContaCorrente ";
-        hql +=       "WHERE ContaCorrente.Cliente = :cliente";
+        //hql +=       "WHERE ContaCorrente.Cliente = :cliente";
         
         try {
             sf = HibernateUtil.getSessionFactory();

@@ -11,6 +11,7 @@ import model.Cliente;
 import model.ContaCorrente;
 import model.Credito;
 import model.Debito;
+import model.Movimentacao;
 import org.hibernate.SessionFactory;
 import service.ClienteService;
 import service.ContaCorrenteService;
@@ -23,8 +24,8 @@ import service.MovimentacaoService;
 public class Controle {
     public static void main(String[] args) {
         menuPrincipal();
-//        Cliente cliente = ClienteService.getCliente(2);
-//        ContaCorrenteService.getContaCorrente(cliente);
+//         Cliente cliente = ClienteService.getCliente(1);
+//        MovimentacaoService.lancarCredito(cliente, 1000);
     }
     public static void menuPrincipal() {
         Scanner teclado = new Scanner(System.in);
@@ -85,6 +86,19 @@ public class Controle {
         }while(!sair);
         
     }    
+    
+    public static Cliente perguntaCliente(){
+        Scanner teclado = new Scanner(System.in);
+        System.out.print("Digite o id do cliente: ");
+        int id = teclado.nextInt();
+        
+        Cliente cliente = ClienteService.getCliente(id);
+        if (cliente == null){
+            System.out.println("Cliente não encontrado");
+        }        
+        
+        return cliente;
+    }
     public static void consultaConta(){
         /*
          TODO
@@ -92,6 +106,14 @@ public class Controle {
         2 - criar ContaCorrenteService.getContaCorrente(Cliente cliente)
         3 - mostrar o saldo da conta corrente
         */       
+
+        Cliente cliente = perguntaCliente();
+        if (cliente == null){            
+            return;
+        }
+                
+        System.out.println("Conta Corrente " + cliente.getContaCorrente().getNumero());
+        System.out.println("Saldo R$ " + cliente.getContaCorrente().getSaldo());
     }
     
     public static void consultaMovimentacao(){
@@ -101,6 +123,15 @@ public class Controle {
         2 - criar MovimentacaoService.getMovimentacao(Cliente cliente)
         3 - mostrar os lançamentos, destacando se débito ou crédito
         */               
+        Cliente cliente = perguntaCliente();
+        if (cliente == null){            
+            return;
+        }
+        
+        List<Movimentacao> movs = cliente.getContaCorrente().getLancamentos();
+        for (Movimentacao mov : movs) {
+            System.out.println( mov );            
+        }
     }
 
     public static void lancarDebito(){
@@ -109,7 +140,18 @@ public class Controle {
         1 - pedir o id do cliente e recuperar o objeto
         2 - pedir o valor do débito
         2 - criar MovimentacaoService.lancarDebito(Cliente cliente, double valor)
-        */               
+        */   
+
+        Cliente cliente = perguntaCliente();
+        if (cliente == null){            
+            return;
+        }
+        
+        Scanner teclado = new Scanner(System.in);
+        System.out.print("\nDigite o valor do débito: R$ ");
+        double debito = teclado.nextDouble();
+        
+        MovimentacaoService.lancarDebito(cliente, debito);        
     }    
     
     public static void lancarCredito(){
@@ -119,17 +161,13 @@ public class Controle {
         2 - pedir o valor do crédito
         2 - criar MovimentacaoService.lancarCredito(Cliente cliente, double valor)
         */           
-        
-        Scanner teclado = new Scanner(System.in);
-        System.out.print("Digite o id do cliente: ");
-        int id = teclado.nextInt();
-        
-        Cliente cliente = ClienteService.getCliente(id);
-        if (cliente == null){
-            System.out.println("Cliente não encontrado");
+                
+        Cliente cliente = perguntaCliente();
+        if (cliente == null){            
             return;
         }
         
+        Scanner teclado = new Scanner(System.in);
         System.out.print("\nDigite o valor do credito: R$ ");
         double credito = teclado.nextDouble();
         

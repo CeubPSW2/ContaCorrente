@@ -80,6 +80,7 @@ public class ClienteService {
             sf = HibernateUtil.getSessionFactory();
             session = sf.openSession();
             cliente = (Cliente)session.get(Cliente.class, id);
+            cliente.getContaCorrente();
         } catch (Exception e) {
             e.printStackTrace();
         } finally{

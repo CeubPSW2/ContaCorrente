@@ -7,6 +7,7 @@ package model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -22,7 +23,7 @@ public class Cliente {
     private int id;
     private String nome;
     private int cpf;
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ContaCorrente contaCorrente;
 
     public Cliente() {
